@@ -1,0 +1,13 @@
+ignored = ["github.com/TheTannerRyan/gist/cmd"]
+
+[[constraint]]
+  name = "github.com/atotto/clipboard"
+  version = "0.1.1"
+
+[[constraint]]
+  name = "gopkg.in/urfave/cli.v1"
+  version = "1.20.0"
+
+[prune]
+  go-tests = true
+  unused-packages = true
