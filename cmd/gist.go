@@ -20,7 +20,7 @@ import (
 const (
 	appName    = "gist"
 	appUsage   = "unofficial toolkit for file uploads to GitHub gist"
-	appVersion = "1.0.0"
+	appVersion = "1.0.1"
 	appAuthor  = "Tanner Ryan (https://github.com/TheTannerRyan/gist)"
 )
 
