@@ -73,12 +73,14 @@ func jsonBuilder(description string, public bool, files []*file) (*bytes.Buffer,
 		}
 		fileMap[f.Name] = entry
 	}
+
 	// assemble payload
 	data := payload{
 		Description: description,
 		Public:      public,
 		Files:       fileMap,
 	}
+
 	// encode payload
 	buff := new(bytes.Buffer)
 	encoder := json.NewEncoder(buff)

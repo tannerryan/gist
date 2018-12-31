@@ -105,87 +105,20 @@ func cmdExec(c *cli.Context, public bool) error {
 
 	var files []*file
 
+	// determine input mode
 	switch mode := checkInputMode(c.Args(), c.Bool("clipboard")); mode {
 	case modeStdin:
-		// return error if more than 1 file name override is defined
-		if len(overwrittenNames) > 1 {
-			return errExtraNames
+		if err := execStdin(c, overwrittenNames, &files); err != nil {
+			return err
 		}
-		// gist file name for stdin (default "gistfile1.txt")
-		fileName := "gistfile1.txt"
-		if len(overwrittenNames) == 1 {
-			fileName = overwrittenNames[0]
-		}
-		// buffer lines content from stdout
-		var lines []string
-		scanner := bufio.NewScanner(os.Stdin)
-		for scanner.Scan() {
-			lines = append(lines, scanner.Text())
-		}
-		// update files to contain single file (stdin)
-		files = []*file{
-			{
-				Name:    fileName,
-				Content: strings.Join(lines, "\n"),
-			},
-		}
-		fmt.Printf("Uploading %s as %s\n", "stdin", fileName)
-
 	case modeGlobs:
-		// return error if more overrides are defined than inputs
-		if len(overwrittenNames) > len(c.Args()) {
-			return errExtraNames
+		if err := execGlobs(c, overwrittenNames, &files); err != nil {
+			return err
 		}
-		// length of user provided file names
-		overrideLength := len(overwrittenNames)
-		// read each globbed file
-		for i, glob := range c.Args() {
-			contents, err := ioutil.ReadFile(glob)
-			if err != nil {
-				fmt.Println("failed to read " + glob)
-				return errFileRead
-			}
-			// check and insert custom file name (if applicable)
-			fileName := glob
-			if i+1 <= overrideLength {
-				fileName = overwrittenNames[i]
-			}
-			// create new file entity
-			file := &file{
-				Name:    fileName,
-				Content: string(contents),
-			}
-			files = append(files, file)
-			fmt.Printf("Uploading %s as %s\n", glob, fileName)
-		}
-
 	case modeClipboard:
-		// return error if more than 1 file name override is defined
-		if len(overwrittenNames) > 1 {
-			return errExtraNames
+		if err := execClipboard(c, overwrittenNames, &files); err != nil {
+			return err
 		}
-		// gist file name for stdin (default "gistfile1.txt")
-		fileName := "gistfile1.txt"
-		if len(overwrittenNames) == 1 {
-			fileName = overwrittenNames[0]
-		}
-		pastedText, err := clipboard.ReadAll()
-		if err != nil {
-			return errClipboard
-		}
-		// return error if clipboard is the token
-		if pastedText == c.String("token") {
-			return errCopyToken
-		}
-		// update files to contain single file (clipboard)
-		files = []*file{
-			{
-				Name:    fileName,
-				Content: pastedText,
-			},
-		}
-		fmt.Printf("Uploading %s as %s\n", "clipboard", fileName)
-
 	default:
 		return errNoData
 	}
@@ -201,5 +134,115 @@ func cmdExec(c *cli.Context, public bool) error {
 	}
 
 	fmt.Println(url)
+	return nil
+}
+
+// execStdin is triggered when stdin input is provided. It will read the data
+// from stdin and update the file array. It may return an error.
+func execStdin(c *cli.Context, names []string, files *[]*file) error {
+	// return error if more than 1 file name override is defined
+	if len(names) > 1 {
+		return errExtraNames
+	}
+
+	// gist file name for stdin (default "gistfile1.txt")
+	fileName := "gistfile1.txt"
+	if len(names) == 1 {
+		fileName = names[0]
+	}
+
+	// buffer lines content from stdout
+	var lines []string
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	// update files to contain single file (stdin)
+	*files = []*file{
+		{
+			Name:    fileName,
+			Content: strings.Join(lines, "\n"),
+		},
+	}
+
+	fmt.Printf("Uploading %s as %s\n", "stdin", fileName)
+	return nil
+}
+
+// execGlobs is triggered when glob input is provided. It will read the data
+// from the globs and update the file array. It may return an error.
+func execGlobs(c *cli.Context, names []string, files *[]*file) error {
+	// return error if more overrides are defined than inputs
+	if len(names) > len(c.Args()) {
+		return errExtraNames
+	}
+
+	// length of user provided file names
+	namesLength := len(names)
+	// read each globbed file
+	for i, glob := range c.Args() {
+		contents, err := ioutil.ReadFile(glob)
+		if err != nil {
+			fmt.Println("Failed to read " + glob)
+			return errFileRead
+		}
+
+		fileName := glob
+		if i+1 <= namesLength {
+			// insert custom file name
+			fileName = names[i]
+		} else {
+			// only keep file name (strip preceding directory)
+			parts := strings.Split(fileName, "/")
+			partsLength := len(parts)
+			if partsLength > 1 {
+				fileName = parts[partsLength-1]
+			}
+		}
+		// create new file entity
+		file := &file{
+			Name:    fileName,
+			Content: string(contents),
+		}
+		*files = append(*files, file)
+
+		fmt.Printf("Uploading %s as %s\n", glob, fileName)
+	}
+
+	return nil
+}
+
+// execClipboard is triggered when clipboard flag is provided. It will read the
+// data from the clipboard and update the file array. It may return an error.
+func execClipboard(c *cli.Context, names []string, files *[]*file) error {
+	// return error if more than 1 file name override is defined
+	if len(names) > 1 {
+		return errExtraNames
+	}
+
+	// gist file name for stdin (default "gistfile1.txt")
+	fileName := "gistfile1.txt"
+	if len(names) == 1 {
+		fileName = names[0]
+	}
+
+	pastedText, err := clipboard.ReadAll()
+	if err != nil {
+		return errClipboard
+	}
+	// return error if clipboard is the token
+	if pastedText == c.String("token") {
+		return errCopyToken
+	}
+	// update files to contain single file (clipboard)
+	*files = []*file{
+		{
+			Name:    fileName,
+			Content: pastedText,
+		},
+	}
+
+	fmt.Printf("Uploading %s as %s\n", "clipboard", fileName)
 	return nil
 }
