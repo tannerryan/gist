@@ -1,10 +1,17 @@
 language: go
 
 go:
-  "1.x"
+  - "1.x"
 
 go_import_path:
-  github.com/thetannerryan/gist
+  - github.com/thetannerryan/gist
 
 before_install:
-  go get -u github.com/golang/dep/cmd/dep
+  - go get -u github.com/golang/dep/cmd/dep
+  - npm install -g snyk
+
+install:
+  - snyk test
+
+after_success:
+  - snyk monitor
