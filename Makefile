@@ -20,4 +20,8 @@ clean:
 git: clean
 	dep ensure
 
+scan:
+	snyk test
+	snyk monitor
+
 .SILENT:
