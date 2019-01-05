@@ -1,8 +1,15 @@
 # Gist - simplified code sharing
-[![Build Status](https://travis-ci.org/TheTannerRyan/gist.svg?branch=master)](https://travis-ci.org/TheTannerRyan/gist) [![Go Report Card](https://goreportcard.com/badge/github.com/thetannerryan/gist)](https://goreportcard.com/report/github.com/thetannerryan/gist) [![GoDoc](https://godoc.org/github.com/TheTannerRyan/gist?status.svg)](https://godoc.org/github.com/TheTannerRyan/gist) 
-[![GitHub license](https://img.shields.io/github/license/thetannerryan/gist.svg)](https://github.com/TheTannerRyan/gist/blob/master/LICENSE)
+[![Build
+Status](https://travis-ci.org/TheTannerRyan/gist.svg?branch=master)](https://travis-ci.org/TheTannerRyan/gist)
+[![Go Report
+Card](https://goreportcard.com/badge/github.com/thetannerryan/gist)](https://goreportcard.com/report/github.com/thetannerryan/gist)
+[![GoDoc](https://godoc.org/github.com/TheTannerRyan/gist?status.svg)](https://godoc.org/github.com/TheTannerRyan/gist)
+[![GitHub
+license](https://img.shields.io/github/license/thetannerryan/gist.svg)](https://github.com/TheTannerRyan/gist/blob/master/LICENSE)
 
-Gist is an unofficial toolkit for file uploads to GitHub gist. The purpose of gist is to provide a simple command-line tool for sharing content on GitHub's gist platform.
+Gist is an unofficial toolkit for file uploads to GitHub gist. The purpose of
+gist is to provide a simple command-line tool for sharing content on GitHub's
+gist platform.
 
 ## Table of Contents
  * [Installation](#installation)
@@ -10,7 +17,7 @@ Gist is an unofficial toolkit for file uploads to GitHub gist. The purpose of gi
  * [Usage](#usage)
  * [Examples](#examples)
  * [License](#license)
- 
+
 ## Installation
 
 ### macOS (via Homebrew)
@@ -19,22 +26,23 @@ brew update
 brew install TheTannerRyan/bin/gist
 ```
 ### Manual
-Download the [latest](https://github.com/TheTannerRyan/gist/releases/latest) release for your platform (Darwin/macOS, Linux, Windows). Unpack the tar, and copy
-the binary to a directory that is in the PATH. Here is an example on macOS
+Download the [latest](https://github.com/TheTannerRyan/gist/releases/latest)
+release for your platform (Darwin/macOS, Linux, Windows). Unpack the tar, and
+copy the binary to a directory that is in the PATH. Here is an example on macOS
 (Darwin):
 ```sh
 wget https://github.com/TheTannerRyan/gist/releases/download/v1.0.1/gist-darwin_amd64.tar.gz
 tar -xzf gist-darwin_amd64.tar.gz
 mv gist /usr/local/bin
 ```
-The `/usr/local/bin directory` will work with most variants of UNIX. For Windows,
-you will have to add the parent directory to the system path.
+The `/usr/local/bin directory` will work with most variants of UNIX. For
+Windows, you will have to add the parent directory to the system path.
 
 ## Configuration
 To use gist, you need to create a Github personal access token. To create a
-token, go to the [token settings](https://github.com/settings/tokens). Click the "generate new token"
-button and enter any description. For the scope, just select "gist". Then click
-generate token.
+token, go to the [token settings](https://github.com/settings/tokens). Click the
+"generate new token" button and enter any description. For the scope, just
+select "gist". Then click generate token.
 
 Once you have a token, you should set the `GIST_KEY` environment variable to the
 token value. If you do not want to use an environment variable, you will have to
@@ -131,5 +139,5 @@ overrides, the original file names will be used. For stdin and the clipboard, if
 no name is provided, the file will be uploaded as `gistfile1.txt`.
 
 ## License
-Copyright (c) 2018 Tanner Ryan. All rights reserved. Use of this source code is
-governed by a MIT license that can be found in the LICENSE file.
+Copyright (c) 2019 Tanner Ryan. All rights reserved. Use of this source code is
+governed by a BSD-style license that can be found in the LICENSE file.
