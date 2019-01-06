@@ -19,7 +19,7 @@ https://github.com/TheTannerRyan/gist/releases/latest. Unpack the tar, and copy
 the binary to a directory that is in the PATH. Here is an example on macOS
 (Darwin):
 
-    wget https://github.com/TheTannerRyan/gist/releases/download/v1.0.1/gist-darwin_amd64.tar.gz
+    wget https://github.com/TheTannerRyan/gist/releases/download/v1.0.2/gist-darwin_amd64.tar.gz
     tar -xzf gist-darwin_amd64.tar.gz
     mv gist /usr/local/bin
 
@@ -49,15 +49,16 @@ Global usage:
     gist [global options] command [command options] [arguments...]
 
     VERSION:
-    1.0.1
+    1.0.2
 
     AUTHOR:
     Tanner Ryan (https://github.com/TheTannerRyan/gist)
 
     COMMANDS:
-        public, p  upload one or more public files
-        secret, s  upload one or more secret files (shh! it's a secret)
-        help, h    Shows a list of commands or help for one command
+        public, p   upload one or more public files
+        secret, s   upload one or more secret files (shh! it's a secret)
+        license, l  show licensing information
+        help, h     Shows a list of commands or help for one command
 
     GLOBAL OPTIONS:
     --help, -h     show help

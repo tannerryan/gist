@@ -20,7 +20,7 @@ import (
 const (
 	appName    = "gist"
 	appUsage   = "unofficial toolkit for file uploads to GitHub gist"
-	appVersion = "1.0.1"
+	appVersion = "1.0.2"
 	appAuthor  = "Tanner Ryan (https://github.com/TheTannerRyan/gist)"
 )
 
@@ -79,6 +79,16 @@ func Run() error {
 			Action: func(c *cli.Context) error {
 				// execute secret upload
 				return cmdExec(c, false)
+			},
+			Flags: flags,
+		},
+		{
+			Name:    "license",
+			Aliases: []string{"l"},
+			Usage:   "show licensing information",
+			Action: func(c *cli.Context) error {
+				// execute license
+				return cmdLicense(c)
 			},
 			Flags: flags,
 		},
@@ -244,5 +254,44 @@ func execClipboard(c *cli.Context, names []string, files *[]*file) error {
 	}
 
 	fmt.Printf("Uploading %s as %s\n", "clipboard", fileName)
+	return nil
+}
+
+// cmdLicense is triggerd on license command
+func cmdLicense(c *cli.Context) error {
+	fmt.Println(`BSD 2-Clause License
+
+Copyright (c) 2019 Tanner Ryan. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+---
+
+Ato Araki's Go clipboard library is under a BSD 3-clause license:
+https://github.com/atotto/clipboard/blob/master/LICENSE
+
+Jeremy Saenz's Go command line library is under a MIT license:
+https://github.com/urfave/cli/blob/master/LICENSE
+
+Once again, all rights reserved.`)
 	return nil
 }
