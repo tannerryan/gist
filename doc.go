@@ -134,5 +134,8 @@ License
 Copyright (c) 2019 Tanner Ryan. All rights reserved. Use of this source code is
 governed by a BSD-style license that can be found in the LICENSE file.
 
+Ato Araki's Go clipboard library is under a BSD 3-clause license. Jeremy Saenz's
+Go command line library is under a MIT license. Once again, all rights reserved.
+
 */
 package main
