@@ -1,11 +1,11 @@
 # Gist - simplified code sharing
 [![Build
-Status](https://travis-ci.org/TheTannerRyan/gist.svg?branch=master)](https://travis-ci.org/TheTannerRyan/gist)
+Status](https://img.shields.io/travis/TheTannerRyan/gist.svg?style=flat-square)](https://travis-ci.org/TheTannerRyan/gist)
 [![Go Report
-Card](https://goreportcard.com/badge/github.com/thetannerryan/gist)](https://goreportcard.com/report/github.com/thetannerryan/gist)
-[![GoDoc](https://godoc.org/github.com/TheTannerRyan/gist?status.svg)](https://godoc.org/github.com/TheTannerRyan/gist)
+Card](https://goreportcard.com/badge/github.com/thetannerryan/gist?style=flat-square)](https://goreportcard.com/report/github.com/thetannerryan/gist)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-5673AF.svg?style=flat-square)](https://godoc.org/github.com/TheTannerRyan/gist)
 [![GitHub
-license](https://img.shields.io/github/license/thetannerryan/gist.svg)](https://github.com/TheTannerRyan/gist/blob/master/LICENSE)
+license](https://img.shields.io/github/license/TheTannerRyan/gist.svg?style=flat-square)](https://github.com/TheTannerRyan/gist/blob/master/LICENSE)
 
 Gist is an unofficial toolkit for file uploads to GitHub gist. The purpose of
 gist is to provide a simple command-line tool for sharing content on GitHub's
