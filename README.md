@@ -31,7 +31,7 @@ release for your platform (Darwin/macOS, Linux, Windows). Unpack the tar, and
 copy the binary to a directory that is in the PATH. Here is an example on macOS
 (Darwin):
 ```sh
-wget https://github.com/TheTannerRyan/gist/releases/download/v1.0.2/gist-darwin_amd64.tar.gz
+wget https://github.com/TheTannerRyan/gist/releases/download/v2.0.0/gist-darwin_amd64.tar.gz
 tar -xzf gist-darwin_amd64.tar.gz
 mv gist /usr/local/bin
 ```
@@ -59,7 +59,7 @@ USAGE:
 gist [global options] command [command options] [arguments...]
 
 VERSION:
-1.0.2
+2.0.0
 
 AUTHOR:
 Tanner Ryan (https://github.com/TheTannerRyan/gist)

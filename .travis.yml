@@ -1,17 +1,13 @@
 language: go
 
 go:
-  - "1.x"
+  - "1.12.x"
 
-go_import_path: github.com/thetannerryan/gist
-
-before_install:
-  - go get -u github.com/golang/dep/cmd/dep
-  - npm install -g snyk
+env:
+  - GO111MODULE=on
 
 script:
-  - make
-  - snyk test
+  - go build -mod=vendor -o gist
+  - ./gist --version
 
-after_success:
-  - snyk monitor
+install: true
