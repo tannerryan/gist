@@ -14,14 +14,14 @@ import (
 	"strings"
 
 	"github.com/atotto/clipboard" // Copyright (c) 2013 Ato Araki. All rights reserved.
-	"gopkg.in/urfave/cli.v1"      // Copyright (c) 2016 Jeremy Saenz. All rights reserved.
+	"github.com/urfave/cli/v2"    // Copyright (c) 2016 Jeremy Saenz. All rights reserved.
 )
 
 const (
 	appName    = "gist"
 	appUsage   = "unofficial toolkit for file uploads to GitHub gist"
-	appVersion = "2.0.0"
-	appAuthor  = "Tanner Ryan (https://github.com/TheTannerRyan/gist)"
+	appVersion = "2.0.1"
+	// appAuthor  = "Tanner Ryan (https://github.com/TheTannerRyan/gist)"
 )
 
 var (
@@ -41,27 +41,31 @@ func Run() error {
 	setup(app)
 
 	flags := []cli.Flag{
-		cli.StringFlag{
-			Name:   "token, t",
-			Usage:  "required GitHub Gist access token",
-			EnvVar: "GIST_KEY",
+		&cli.StringFlag{
+			Name:    "token",
+			Aliases: []string{"t"},
+			Usage:   "required GitHub Gist access token",
+			EnvVars: []string{"GIST_TOKEN"},
 		},
-		cli.BoolFlag{
-			Name:  "clipboard, c",
-			Usage: "read from clipboard",
+		&cli.BoolFlag{
+			Name:    "clipboard",
+			Aliases: []string{"c"},
+			Usage:   "read from clipboard",
 		},
-		cli.StringFlag{
-			Name:        "name, n",
+		&cli.StringFlag{
+			Name:        "name",
+			Aliases:     []string{"n"},
 			Usage:       "comma separated file name override for Gist",
 			Destination: &fileNames,
 		},
-		cli.StringFlag{
-			Name:        "description, d",
+		&cli.StringFlag{
+			Name:        "description",
+			Aliases:     []string{"d"},
 			Usage:       "gist description",
 			Destination: &gistDescription,
 		},
 	}
-	app.Commands = []cli.Command{
+	app.Commands = []*cli.Command{
 		{
 			Name:    "public",
 			Aliases: []string{"p"},
@@ -101,7 +105,12 @@ func setup(app *cli.App) {
 	app.Name = appName
 	app.Usage = appUsage
 	app.Version = appVersion
-	app.Author = appAuthor
+	app.Authors = []*cli.Author{
+		{
+			Name:  "Tanner Ryan",
+			Email: "tanner@txryan.com",
+		},
+	}
 	app.EnableBashCompletion = true
 }
 
@@ -184,14 +193,14 @@ func execStdin(c *cli.Context, names []string, files *[]*file) error {
 // from the globs and update the file array. It may return an error.
 func execGlobs(c *cli.Context, names []string, files *[]*file) error {
 	// return error if more overrides are defined than inputs
-	if len(names) > len(c.Args()) {
+	if len(names) > c.Args().Len() {
 		return errExtraNames
 	}
 
 	// length of user provided file names
 	namesLength := len(names)
 	// read each globbed file
-	for i, glob := range c.Args() {
+	for i, glob := range c.Args().Slice() {
 		contents, err := ioutil.ReadFile(glob)
 		if err != nil {
 			fmt.Println("Failed to read " + glob)

@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"os"
 
-	"gopkg.in/urfave/cli.v1" // Copyright (c) 2016 Jeremy Saenz. All rights reserved.
+	"github.com/urfave/cli/v2" // Copyright (c) 2016 Jeremy Saenz. All rights reserved.
 )
 
 // simplified errors when interacting with GitHub's API
@@ -38,7 +38,7 @@ func checkInputMode(args cli.Args, clip bool) inputType {
 	if clip {
 		return modeClipboard
 	}
-	if len(args) == 0 {
+	if args.Len() == 0 {
 		stat, _ := os.Stdin.Stat()
 		if (stat.Mode() & os.ModeCharDevice) == 0 {
 			return modeStdin
