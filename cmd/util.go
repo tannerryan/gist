@@ -17,9 +17,9 @@ import (
 
 // simplified errors when interacting with GitHub's API
 var (
-	errNetwork     = errors.New("Error: cannot send request to GitHub")
-	errBadResponse = errors.New("Error: cannot read reply from GitHub")
-	errBadAuth     = errors.New("Error: invalid API token")
+	errNetwork     = errors.New("error: cannot send request to GitHub")
+	errBadResponse = errors.New("error: cannot read reply from GitHub")
+	errBadAuth     = errors.New("error: invalid API token")
 )
 
 // inputType is an enum for the type of input modes

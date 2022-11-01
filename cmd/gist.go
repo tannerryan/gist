@@ -28,11 +28,11 @@ var (
 	httpClient      = &http.Client{} // HTTP client for sending requests
 	fileNames       = ""             // string to possibly be populated for file name overrides
 	gistDescription = ""             // string to possibly be populated with gist description
-	errNoData       = errors.New("Error: no input data has been specified")
-	errExtraNames   = errors.New("Error: more override file names than inputs have been provided")
-	errFileRead     = errors.New("Error: cannot read all files")
-	errClipboard    = errors.New("Error: cannot read data from clipboard")
-	errCopyToken    = errors.New("Error: the clipboard is populated with the API token")
+	errNoData       = errors.New("error: no input data has been specified")
+	errExtraNames   = errors.New("error: more override file names than inputs have been provided")
+	errFileRead     = errors.New("error: cannot read all files")
+	errClipboard    = errors.New("error: cannot read data from clipboard")
+	errCopyToken    = errors.New("error: the clipboard is populated with the API token")
 )
 
 // Run is the main entrypoint for gist.
