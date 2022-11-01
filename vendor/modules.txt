@@ -1,4 +1,0 @@
-# github.com/atotto/clipboard v0.1.2
-github.com/atotto/clipboard
-# gopkg.in/urfave/cli.v1 v1.20.0
-gopkg.in/urfave/cli.v1

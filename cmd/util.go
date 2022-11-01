@@ -12,14 +12,14 @@ import (
 	"net/http"
 	"os"
 
-	"gopkg.in/urfave/cli.v1" // Copyright (c) 2016 Jeremy Saenz. All rights reserved.
+	"github.com/urfave/cli/v2" // Copyright (c) 2016 Jeremy Saenz. All rights reserved.
 )
 
 // simplified errors when interacting with GitHub's API
 var (
-	errNetwork     = errors.New("Error: cannot send request to GitHub")
-	errBadResponse = errors.New("Error: cannot read reply from GitHub")
-	errBadAuth     = errors.New("Error: invalid API token")
+	errNetwork     = errors.New("error: cannot send request to GitHub")
+	errBadResponse = errors.New("error: cannot read reply from GitHub")
+	errBadAuth     = errors.New("error: invalid API token")
 )
 
 // inputType is an enum for the type of input modes
@@ -38,7 +38,7 @@ func checkInputMode(args cli.Args, clip bool) inputType {
 	if clip {
 		return modeClipboard
 	}
-	if len(args) == 0 {
+	if args.Len() == 0 {
 		stat, _ := os.Stdin.Stat()
 		if (stat.Mode() & os.ModeCharDevice) == 0 {
 			return modeStdin
